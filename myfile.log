@@ -1,0 +1,91 @@
+{cslinux1:~/2/Part3} ls
+Makefile  myfile.c    redirect.c  test         tokenizer.h
+myfile    README.txt  redirect.h  tokenizer.c
+{cslinux1:~/2/Part3} rm myfile
+rm: remove regular file ‘myfile’? y
+{cslinux1:~/2/Part3} 
+{cslinux1:~/2/Part3} 
+{cslinux1:~/2/Part3} 
+{cslinux1:~/2/Part3} 
+{cslinux1:~/2/Part3} ls
+Makefile  README.txt  redirect.h  tokenizer.c
+myfile.c  redirect.c  test        tokenizer.h
+{cslinux1:~/2/Part3} make && make clean
+gcc -o redirect.o -c redirect.c -Wall -I.
+gcc -o tokenizer.o -c tokenizer.c -Wall -I.
+gcc -o myfile.o -c myfile.c -Wall -I.
+gcc -o myfile myfile.o redirect.o tokenizer.o
+Done
+rm -f tokenizer.o || :
+rm -f redirect.o || :
+rm -f myfile.o || :
+Done Cleaning
+{cslinux1:~/2/Part3} ls
+Makefile  myfile.c    redirect.c  test         tokenizer.h
+myfile    README.txt  redirect.h  tokenizer.c
+{cslinux1:~/2/Part3} cd test
+{cslinux1:~/2/Part3/test} ls
+hello.c  out2.c
+{cslinux1:~/2/Part3/test} cat hello.c 
+#include <stdio.h>
+
+int
+main(int argc, char **argv) {
+	printf("Hello, World!\n");
+}
+{cslinux1:~/2/Part3/test} cat out2.c 
+// This file already has content!
+{cslinux1:~/2/Part3/test} ../myfile
+{myfile}$ read < hello.c
+Command: read
+File Redirection: <
+	File: hello.c
+{myfile}$ write > out1.c
+Command: write
+File Redirection: >
+	File: out1.c
+{myfile}$ append >> out2.c
+Command: append
+File Redirection: >>
+	File: out2.c
+{myfile}$ read < hello.c | write > hello2.c
+Command: read
+File Redirection: <
+	File: hello.c
+Pipe: |
+Command: write
+File Redirection: >
+	File: hello2.c
+{myfile}$ exit
+Command: exit
+{cslinux1:~/2/Part3/test} ls
+hello2.c  hello.c  out1.c  out2.c
+{cslinux1:~/2/Part3/test} cat hello.c 
+#include <stdio.h>
+
+int
+main(int argc, char **argv) {
+	printf("Hello, World!\n");
+}
+{cslinux1:~/2/Part3/test} cat out1.c 
+#include <stdio.h>
+
+int
+main(int argc, char **argv) {
+	printf("Hello, World!\n");
+}
+{cslinux1:~/2/Part3/test} cat out2.c 
+// This file already has content!
+#include <stdio.h>
+
+int
+main(int argc, char **argv) {
+	printf("Hello, World!\n");
+}
+{cslinux1:~/2/Part3/test} cat hello2.c 
+#include <stdio.h>
+
+int
+main(int argc, char **argv) {
+	printf("Hello, World!\n");
+}
